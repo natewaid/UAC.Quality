@@ -8,7 +8,7 @@
         [Route("addcostimpact", Name = "spec.addcostimpact")]
         public ActionResult AddCostImpact(int id, string addedcost, string determinedby)
         {
-            costImpactProvider.AddCostImpact(id, addedcost, determinedby);
+            costImpactProvider.Add(id, addedcost, determinedby);
 
             return Json(new { });
         }

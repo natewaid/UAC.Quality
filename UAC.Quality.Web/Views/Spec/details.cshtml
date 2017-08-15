@@ -401,12 +401,12 @@
     <script>
 
         $(function () {
-            //populate_auto_complete('@Url.RouteUrl("data.alloys")', $('.alloy'));
-            //populate_auto_complete('@Url.RouteUrl("data.tempers")', $('.temper'));
-            //populate_auto_complete('@Url.RouteUrl("data.specs")', $('.equiv-spec'));
-            populate_auto_complete('http://usctwebapps/web.api/api/alloy/get', $('.alloy'));
-            populate_auto_complete('http://usctwebapps/web.api/api/temper/get', $('.temper'));
-            populate_auto_complete('http://usctwebapps/web.api/api/spec/get', $('.equiv-spec'));
+            populate_auto_complete('@Url.RouteUrl("data.alloys")', $('.alloy'));
+            populate_auto_complete('@Url.RouteUrl("data.tempers")', $('.temper'));
+            populate_auto_complete('@Url.RouteUrl("data.specs")', $('.equiv-spec'));
+            //populate_auto_complete('http://usctwebapps/web.api/api/alloy/get', $('.alloy'));
+            //populate_auto_complete('http://usctwebapps/web.api/api/temper/get', $('.temper'));
+           // populate_auto_complete('http://usctwebapps/web.api/api/spec/get', $('.equiv-spec'));
         });
 
         $(document).on('change', 'input:radio', function () {

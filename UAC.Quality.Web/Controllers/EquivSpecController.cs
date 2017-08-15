@@ -8,7 +8,7 @@
         [Route("addequivspec", Name = "spec.addequivspec")]
         public ActionResult AddEquivSpec(int id, string specToAdd)
         {
-            equivSpecProvider.AddEquivSpec(id, specToAdd);
+            equivSpecProvider.Add(id, specToAdd);
 
             return Json(new { });
         }

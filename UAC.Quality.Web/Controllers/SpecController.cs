@@ -42,13 +42,13 @@
         {
             var id = specProvider.SaveSpec(model.Spec);
 
-            alloyTemperProvider.SaveSpecAlloyTemper(id, model.AlloyTempersToAdd);
+            alloyTemperProvider.Save(id, model.AlloyTempersToAdd);
 
-            equivSpecProvider.SaveEquivSpec(id, model.EquivSpecsToAdd);
+            equivSpecProvider.Save(id, model.EquivSpecsToAdd);
 
-            costImpactProvider.SaveCostImpact(id, model.CostImpactsToAdd);
+            costImpactProvider.Save(id, model.CostImpactsToAdd);
 
-            deliveryImpactProvider.SaveDeliveryImpact(id, model.DeliveryImpactsToAdd);
+            deliveryImpactProvider.Save(id, model.DeliveryImpactsToAdd);
 
             return RedirectToRoute("spec.index");
         }

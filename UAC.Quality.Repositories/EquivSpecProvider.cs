@@ -5,9 +5,9 @@
     using Flash;
     using Gimme;
 
-    public class EquivSpecProvider : IEquivSpecProvider
+    public class EquivSpecProvider : IProvider
     {
-        public void SaveEquivSpec(int specid, string equivSpecs)
+        public void Save(int specid, string equivSpecs)
         {
             if (equivSpecs == null)
             {
@@ -22,7 +22,10 @@
                 );
         }
 
-        public void AddEquivSpec(int specid, string specToAdd) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_equiv_add", new { specid, specToAdd });
+        public void Add(int specid, params string[] toAdd)
+        {
+            Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_equiv_add", new { specid, specToAdd = toAdd[0] });
+        }
 
         public void Delete(int id) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_equiv_delete", new { id });
 

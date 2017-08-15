@@ -8,7 +8,7 @@
         [Route("addalloytemper", Name = "spec.addalloytemper")]
         public ActionResult AddAlloyTemper(int id, string alloy, string temper)
         {
-            alloyTemperProvider.AddAlloyTemper(id, alloy, temper);
+            alloyTemperProvider.Add(id, alloy, temper);
 
             return Json(new { });
         }

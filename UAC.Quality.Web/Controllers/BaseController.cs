@@ -6,9 +6,9 @@
     public class BaseController : Controller
     {
         protected ISpecProvider specProvider { get; } = Gimme.Collection.Locate<ISpecProvider>();
-        protected IAlloyTemperProvider alloyTemperProvider { get; } = Gimme.Collection.Locate<IAlloyTemperProvider>();
-        protected IEquivSpecProvider equivSpecProvider { get; } = Gimme.Collection.Locate<IEquivSpecProvider>();
-        protected ICostImpactProvider costImpactProvider { get; } = Gimme.Collection.Locate<ICostImpactProvider>();
-        protected IDeliveryImpactProvider deliveryImpactProvider { get; } = Gimme.Collection.Locate<IDeliveryImpactProvider>();
+        protected IProvider alloyTemperProvider { get; } = Gimme.Collection.Locate<IProvider>("alloytemper");
+        protected IProvider equivSpecProvider { get; } = Gimme.Collection.Locate<IProvider>("equivspec");
+        protected IProvider costImpactProvider { get; } = Gimme.Collection.Locate<IProvider>("costimpact");
+        protected IProvider deliveryImpactProvider { get; } = Gimme.Collection.Locate<IProvider>("deliveryimpact");
     }
 }

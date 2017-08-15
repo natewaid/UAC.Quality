@@ -8,7 +8,7 @@
         [Route("adddelimpact", Name = "spec.adddelimpact")]
         public ActionResult AddDeliveryImpact(int id, string impact)
         {
-            deliveryImpactProvider.AddDeliveryImpact(id, impact);
+            deliveryImpactProvider.Add(id, impact);
 
             return Json(new { });
         }

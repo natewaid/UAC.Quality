@@ -5,9 +5,9 @@
     using Flash;
     using Gimme;
 
-    public class CostImpactProvider : ICostImpactProvider
+    public class CostImpactProvider : IProvider
     {
-        public void SaveCostImpact(int specid, string costImpacts)
+        public void Save(int specid, string costImpacts)
         {
             if (costImpacts == null)
             {
@@ -22,7 +22,13 @@
                 );
         }
 
-        public void AddCostImpact(int specid, string addedcost, string determinedby) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_cost_impact_add", new { specid, addedcost, determinedby });
+        public void Add(int specid, params string[] toAdd)
+        {
+            var addedcost = toAdd[0];
+            var determinedby = toAdd[1];
+
+            Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_cost_impact_add", new { specid, addedcost, determinedby });
+        }
 
         public void Delete(int id) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_cost_impact_delete", new { id });
     }

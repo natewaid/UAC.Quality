@@ -15,10 +15,10 @@
             Collection.RegisterAsFactoryWithName<IDbConnection, SqlConnection>("quality", connStr);
             
             Collection.Register<ISpecProvider, SpecProvider>();
-            Collection.Register<IAlloyTemperProvider, AlloyTemperProvider>();
-            Collection.Register<IEquivSpecProvider, EquivSpecProvider>();
-            Collection.Register<ICostImpactProvider, CostImpactProvider>();
-            Collection.Register<IDeliveryImpactProvider, DeliveryImpactProvider>();
+            Collection.RegisterWithName<IProvider, AlloyTemperProvider>("alloytemper");
+            Collection.RegisterWithName<IProvider, EquivSpecProvider>("equivspec");
+            Collection.RegisterWithName<IProvider, CostImpactProvider>("costimpact");
+            Collection.RegisterWithName<IProvider, DeliveryImpactProvider>("deliveryimpact");
         }
     }
 }

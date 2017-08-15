@@ -1,13 +1,14 @@
 ﻿namespace UAC.Quality.Repositories
 {
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;    
     using Flash;
     using Gimme;
 
-    public class AlloyTemperProvider : IAlloyTemperProvider
+    public class AlloyTemperProvider : IProvider
     {
-        public void SaveSpecAlloyTemper(int specid, string alloyTempers)
+        public void Save(int specid, string alloyTempers)
         {
             if (alloyTempers == null)
             {
@@ -22,8 +23,17 @@
                 );
         }
 
-        public void AddAlloyTemper(int specid, string alloy, string temper) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_alloy_temper_add", new { specid, alloy, temper });
+        public void Add(int specid, params string[] toAdd)
+        {
+            var alloy = toAdd[0];
+            var temper = toAdd[1];
 
-        public void Delete(int id) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_alloy_temper_delete", new { id });
+            Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_alloy_temper_add", new { specid, alloy, temper });
+        }
+
+        public void Delete(int id)
+        {
+            Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_alloy_temper_delete", new { id });
+        }
     }
 }

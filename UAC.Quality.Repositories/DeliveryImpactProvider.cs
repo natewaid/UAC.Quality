@@ -5,9 +5,9 @@
     using Gimme;
     using Flash;
 
-    public class DeliveryImpactProvider : IDeliveryImpactProvider
+    public class DeliveryImpactProvider : IProvider
     {
-        public void SaveDeliveryImpact(int specid, string deliveryImpacts)
+        public void Save(int specid, string deliveryImpacts)
         {
             if (deliveryImpacts == null)
             {
@@ -22,7 +22,10 @@
                 );
         }
 
-        public void AddDeliveryImpact(int specid, string impact) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_delivery_impact_add", new { specid, impact });
+        public void Add(int specid, params string[] toAdd)
+        {
+            Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_delivery_impact_add", new { specid, impact = toAdd[0] });
+        }
 
         public void Delete(int id) => Flash.Execute(Collection.Locate<IDbConnection>("quality"), "quality.spec_delivery_impact_delete", new { id });
 

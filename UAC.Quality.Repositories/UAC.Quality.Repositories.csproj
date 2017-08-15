@@ -50,12 +50,10 @@
     <Compile Include="CostImpactProvider.cs" />
     <Compile Include="DeliveryImpactProvider.cs" />
     <Compile Include="EquivSpecProvider.cs" />
-    <Compile Include="IAlloyTemperProvider.cs" />
-    <Compile Include="ICostImpactProvider.cs" />
-    <Compile Include="IDeliveryImpactProvider.cs" />
-    <Compile Include="IEquivSpecProvider.cs" />
     <Compile Include="ISpecProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IProvider.cs" />
+    <Compile Include="SimpleData.cs" />
     <Compile Include="SpecDetailsResult.cs" />
     <Compile Include="SpecProvider.cs" />
   </ItemGroup>

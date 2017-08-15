@@ -2,46 +2,44 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Newtonsoft.Json;
     using Gimme;
+    using Repositories;
 
     [RoutePrefix("data")]
     public class DataController : Controller
     {
-        //private ISpecProvider specProvider;
-        //private IAlloyTemperProvider alloyTemperProvider;
+        private SpecProvider specProvider;
 
-       // public DataController()
-        //{
-        //    specProvider = Collection.Locate<ISpecProvider>();
-        //    alloyTemperProvider = Collection.Locate<IAlloyTemperProvider>();
-       // }
+        public DataController()
+        {
+            specProvider = (SpecProvider)Collection.Locate<ISpecProvider>();
+        }
 
-        //[HttpGet]
-        //[Route("alloys", Name = "data.alloys")]
-        //public JsonResult Alloys()
-        //{
-        //    var alloys = alloyTemperProvider.Alloys();
+        [HttpGet]
+        [Route("alloys", Name = "data.alloys")]
+        public JsonResult Alloys()
+        {
+            var alloys = specProvider.Alloys();
 
-        //    return Json(alloys, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(alloys, JsonRequestBehavior.AllowGet);
+        }
 
-        //[HttpGet]
-        //[Route("tempers", Name = "data.tempers")]
-        //public JsonResult Tempers()
-        //{
-        //    var tempers = alloyTemperProvider.Tempers();
+        [HttpGet]
+        [Route("tempers", Name = "data.tempers")]
+        public JsonResult Tempers()
+        {
+            var tempers = specProvider.Tempers();
 
-        //    return Json(tempers, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(tempers, JsonRequestBehavior.AllowGet);
+        }
 
-        //[HttpGet]
-        //[Route("specs", Name = "data.specs")]
-        //public JsonResult Specs()
-        //{
-        //    var specs = specProvider.Specs().Select(s => s.Name);
+        [HttpGet]
+        [Route("specs", Name = "data.specs")]
+        public JsonResult Specs()
+        {
+            var specs = specProvider.Specs().Select(s => s.Name);
 
-        //    return Json(specs, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(specs, JsonRequestBehavior.AllowGet);
+        }
     }
 }
