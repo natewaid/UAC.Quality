@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Spec>
+
+<div class="navbar navbar-fixed-top">
+
+    <div class="container">
+
+        <div class="row nav-controls">
+
+            <div class="col-md-6">
+                <input type="text" class="query form-control" placeholder="search by spec number or customer..." />
+            </div>
+
+            <div class="col-md-6">
+                <a href="@Url.RouteUrl("spec.details")" class="btn btn-primary pull-right">Create New Spec...</a>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3"><strong>Spec Number</strong></div>
+
+            <div class="col-md-4"><strong>Issuing Customer</strong></div>
+
+            <div class="col-md-4"><strong>Location / Division</strong></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="spec-table">
+
+    @foreach (var s in Model)
+    {
+        <div class="row spec-row" data-query="@($"{s.Name.ToLower()}|{s.Customer.ToLower()}")">
+
+            <div class="col-md-3">
+                <a href="@Url.RouteUrl("spec.details", new { id = s.Id } )">@s.Name</a>
+            </div>
+
+            <div class="col-md-4">@s.Customer</div>
+
+            <div class="col-md-4">@s.Location</div>
+
+        </div>            
+    }
+
+</div>

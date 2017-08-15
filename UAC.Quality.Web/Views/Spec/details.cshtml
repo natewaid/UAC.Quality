@@ -1,0 +1,658 @@
+﻿@model SpecViewModel
+
+<style>
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+
+<a href="@Url.RouteUrl("spec.index")">Back to list</a>
+
+@using (Html.BeginForm("Save", "Spec", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Spec.Id)
+
+    <input type="submit" class="btn btn-primary" value="Save" />
+
+    <h3>Specification Information</h3>
+
+    <div class="well">
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="Name">Spec Number</label>
+                @Html.TextBoxFor(m => m.Spec.Name, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-4">
+                <label for="Customer">Issuing Customer</label>
+                @Html.TextBoxFor(m => m.Spec.Customer, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-4">
+                <label for="Location">Location / Division</label>
+                @Html.TextBoxFor(m => m.Spec.Location, new { @class = "form-control" })
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <label for="Revision">Revision</label>
+                @Html.TextBoxFor(m => m.Spec.Revision, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-4">
+                <label for="Title">Spec Title</label>
+                @Html.TextBoxFor(m => m.Spec.Title, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-4">
+                <label for="Control">To Control</label>
+                @Html.TextBoxFor(m => m.Spec.Control, new { @class = "form-control" })
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <label for="CreatedAt">Dated</label>
+                @Html.TextBoxFor(m => m.Spec.CreatedAt, new { @class = "form-control" })
+
+                <label for="Amendment">Amendment</label>
+                @Html.TextBoxFor(m => m.Spec.Amendment, new { @class = "form-control" })
+
+                <label for="FileUnder">File Under</label>
+                @Html.TextBoxFor(m => m.Spec.FileUnder, new { @class = "form-control" })
+
+                <label for="SupercededBy">Superceded By</label>
+                @Html.TextBoxFor(m => m.Spec.SupercededBy, new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-4">
+                <h4>Specification Type</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.RadioButtonFor(m => m.Spec.TypeMaterial, true) <label for="Spec_TypeMaterial">Material</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.TypeProcess, true) <label for="Spec_TypeProcess">Process</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.TypeOther, true) <label for="Spec_TypeOther">Other</label><br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Applicable Plants</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.CheckBoxFor(m => m.Spec.AllPlants) <label for="Spec_AllPlants">All Plants</label><br />
+                        @Html.CheckBoxFor(m => m.Spec.Anaheim) <label for="Spec_Anaheim">Anaheim Prod</label><br />
+                        @Html.CheckBoxFor(m => m.Spec.Canton) <label for="Spec_Canton">Canton Prod</label><br />
+                        @Html.CheckBoxFor(m => m.Spec.HeavyPress) <label for="Spec_HeavyPress">Heavy Press</label><br />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <h3>Acceptability and Reviews</h3>
+
+    <div class="well">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <h4>Specification Acceptability</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.RadioButtonFor(m => m.Spec.NoExceptions, true) <label for="Spec_NoExceptions"> No Exceptions</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.WaiversRequired, true) <label for="Spec_WaiversRequired"> Limited, Waivers Required From Customer</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.LimitedScope, true) <label for="Spec_LimitedScope"> Limited, See Scope and Affect</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.NotAcceptable, true) <label for="Spec_NotAcceptable"> Not Acceptable</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.OnFile, true) <label for="Spec_OnFile"> On File, Revision Not Maintained</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.NotReviewed, true) <label for="Spec_NotReviewed"> Not Reviewed, On File in QA</label><br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Metalurgical Department Review</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.RadioButtonFor(m => m.Spec.MetReviewNotRequired, true) <label for="Spec_MetReviewNotRequired">Not Required</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.MetReviewEveryOrder, true) <label for="Spec_MetReviewEveryOrder">Required for Every Order</label><br />
+                        @Html.RadioButtonFor(m => m.Spec.MetReviewRequiredWhen, true) <label for="Spec_MetReviewRequiredWhen">Required When</label><br />
+                        @Html.TextBoxFor(m => m.Spec.MetalurgicalReviewWhen, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>UAC Revision</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <label for="Spec_ReviewedBy">Reviewed By:</label>
+                        @Html.TextBoxFor(m => m.Spec.ReviewedBy, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Spec.ReviewedAt, new { @class = "form-control" })
+
+                        <label for="SupercedeReviewDate">Supercede Review Date:</label>
+                        @Html.TextBoxFor(m => m.Spec.SupercedeReviewDate, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <h3>Scope and Affect</h3>
+
+    <div class="well">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <h4>Alloys/Tempers</h4>
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+
+                        <div class="alloy-tempers">
+
+                            @if (!Model.SpecAlloyTemper.Any())
+                            {
+                                <p class="none-msg">This spec has no alloy-temper combinations.</p>
+                            }
+                            else
+                            {
+                                foreach (var s in Model.SpecAlloyTemper)
+                                {
+                                    <p>
+                                        <input type="hidden" class="alloy-temper-id" value="@s.Id" />
+                                        <a href="" class="delete-alloy-temper" title="delete"><span class="glyphicon glyphicon-trash"></span></a> @s.AlloyTemper
+                                    </p>
+                                }
+
+                            }
+
+                        </div>
+
+                        <hr />
+
+                        @Html.HiddenFor(m => m.AlloyTempersToAdd)
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input type="text" class="alloy form-control input-sm" placeholder="alloy" />
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="temper form-control input-sm" placeholder="temper" />
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-sm btn-primary save-alloy-temper"><span class="glyphicon glyphicon-plus"></span></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h4>Area Affected Notes</h4>
+
+                <ul class="list-group">
+
+                    @foreach (var n in Model.SpecNotes)
+                    {
+                        <li class="list-group-item">@n.NoteText</li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h3>Equivalent Specs</h3>
+
+    <div class="well">
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <div class="equiv-specs">
+
+                    @if (!Model.EquivSpecs.Any())
+                    {
+                        <p class="none-msg">This spec has no equivalents.</p>
+                    }
+                    else
+                    {
+                        foreach (var s in Model.EquivSpecs)
+                        {
+                            <p>
+                                <input type="hidden" class="equiv-spec-id" value="@s.Id" />
+                                <a href="" class="delete-equiv-spec" title="delete"><span class="glyphicon glyphicon-trash"></span></a> @s.EquivalentSpecName
+                            </p>
+                        }
+                    }
+
+                </div>
+
+                <hr />
+
+                @Html.HiddenFor(m => m.EquivSpecsToAdd)
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <input type="text" class="equiv-spec form-control input-sm" placeholder="spec number" />
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-sm btn-primary save-equiv-spec"><span class="glyphicon glyphicon-plus"></span></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h3>Specification Impacts</h3>
+
+    <div class="well">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <h4>Cost Impact</h4>
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+
+                        <div class="cost-impacts">
+
+                            @if (!Model.SpecCostImpact.Any())
+                            {
+                                <p class="none-msg">This spec has no cost impacts.</p>
+                            }
+                            else
+                            {
+                                <div class="row heading">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-6"><strong>Added Cost</strong></div>
+                                    <div class="col-md-5"><strong>Determined By</strong></div>
+                                </div>
+
+                                foreach (var c in Model.SpecCostImpact)
+                                {
+                                    <p>
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <input type="hidden" class="cost-impact-id" value="@c.Id" />
+                                                <a href="" class="delete-cost-impact" title="delete"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @c.AddedCost
+                                            </div>
+                                            <div class="col-md-5">
+                                                @c.DeterminedBy
+                                            </div>
+                                        </div>
+                                    </p>
+                                }
+                            }
+
+                        </div>
+
+                        <hr />
+
+                        @Html.HiddenFor(m => m.CostImpactsToAdd)
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input type="text" class="added-cost form-control input-sm" placeholder="added cost" />
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="determined-by form-control input-sm" placeholder="determined by" />
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-sm btn-primary save-cost-impact"><span class="glyphicon glyphicon-plus"></span></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h4>Delivery Impact</h4>
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+
+                        <div class="del-impacts">
+
+                            @if (!Model.SpecDeliveryImpact.Any())
+                            {
+                                <p class="none-msg">This spec has no delivery impacts.</p>
+                            }
+                            else
+                            {
+                                foreach (var d in Model.SpecDeliveryImpact)
+                                {
+                                    <p>
+                                        <input type="hidden" class="del-impact-id" value="@d.Id" />
+                                        <a href="" class="delete-del-impact" title="delete"><span class="glyphicon glyphicon-trash"></span></a> @d.Impact
+                                    </p>
+                                }
+                            }
+
+                        </div>
+
+                        <hr />
+
+                        @Html.HiddenFor(m => m.DeliveryImpactsToAdd)
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="text" class="del-impact form-control input-sm" placeholder="impact" />
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-sm btn-primary save-del-impact"><span class="glyphicon glyphicon-plus"></span></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Save" />
+
+}
+
+@section scripts
+{
+    <script>
+
+        $(function () {
+            //populate_auto_complete('@Url.RouteUrl("data.alloys")', $('.alloy'));
+            //populate_auto_complete('@Url.RouteUrl("data.tempers")', $('.temper'));
+            //populate_auto_complete('@Url.RouteUrl("data.specs")', $('.equiv-spec'));
+            populate_auto_complete('http://usctwebapps/web.api/api/alloy/get', $('.alloy'));
+            populate_auto_complete('http://usctwebapps/web.api/api/temper/get', $('.temper'));
+            populate_auto_complete('http://usctwebapps/web.api/api/spec/get', $('.equiv-spec'));
+        });
+
+        $(document).on('change', 'input:radio', function () {
+            $(this).siblings('input:radio').prop('checked', false);
+        })
+
+        $(document).on('click', '.save-alloy-temper', function (e) {
+            e.preventDefault();
+
+            var $alloy = $('.alloy')
+                , $temper = $('.temper')
+                , specid = $('#Spec_Id').val();
+
+            if ($alloy.val() == "" || $temper.val() == "") {
+                return;
+            }
+
+            if (specid != '0')  // we are adding to an existing spec, perform the ajax call to add a single alloy-temper combo to the spec
+            {
+                add_alloy_temper('@Url.RouteUrl("spec.addalloytemper")', specid, $alloy.val(), $temper.val());
+                return;
+            }
+
+            // below will add the alloy-temper to the list for a new spec
+
+            var $toadd = $('#AlloyTempersToAdd')
+                , $existing = $('.alloy-tempers');
+
+            if ($toadd.val() != '') {
+                $toadd.val($toadd.val() + '|' + $alloy.val() + '-' + $temper.val());
+            }
+            else {
+                $toadd.val($alloy.val() + '-' + $temper.val());
+            }
+
+            $existing.find('.none-msg').remove();
+            $existing.append('<p><a class="delete-alloy-temper" title="delete"><span class="glyphicon glyphicon-trash"></span></a> ' + $alloy.val() + ' - ' + $temper.val() + '</p>');
+
+            $alloy.val('');
+            $temper.val('');
+        })
+
+        $(document).on('click', '.save-equiv-spec', function (e) {
+            e.preventDefault();
+
+            var $equiv = $('.equiv-spec')
+                , specid = $('#Spec_Id').val();
+
+            if ($equiv.val() == '') {
+                return;
+            }
+
+            if (specid != '0') {
+                add_equiv_spec('@Url.RouteUrl("spec.addequivspec")', specid, $equiv.val());
+                return;
+            }
+
+            var $toadd = $('#EquivSpecsToAdd')
+                , $existing = $('.equiv-specs');
+
+            if ($toadd.val() != '') {
+                $toadd.val($toadd.val() + '|' + $equiv.val());
+            }
+            else {
+                $toadd.val($equiv.val());
+            }
+
+            $existing.find('.none-msg').remove();
+            $existing.append('<p><a class="delete-equiv-spec" title="delete"><span class="glyphicon glyphicon-trash"></span></a> ' + $equiv.val() + '</p>');
+
+            $equiv.val('');
+
+        });
+
+        $(document).on('click', '.save-cost-impact', function (e) {
+            e.preventDefault();
+
+            var $addedcost = $('.added-cost')
+                , $determinedby = $('.determined-by')
+                , specid = $('#Spec_Id').val();
+
+            if ($addedcost.val() == '' || $determinedby.val() == '') {
+                return;
+            }
+
+            if (specid != '0') {
+                add_cost_impact('@Url.RouteUrl("spec.addcostimpact")', specid, $addedcost.val(), $determinedby.val());
+                return;
+            }
+
+            var $toadd = $('#CostImpactsToAdd')
+                , $existing = $('.cost-impacts');
+
+            if ($toadd.val() != '') {
+                $toadd.val($toadd.val() + '|' + $addedcost.val() + '-' + $determinedby.val());
+            }
+            else {
+                $toadd.val($addedcost.val() + '-' + $determinedby.val());
+            }
+
+            $existing.find('.none-msg').remove();
+
+            if ($existing.find('.heading').length == 0) {
+                $existing.append('<div class="row heading"><div class="col-md-1"></div><div class="col-md-6"><strong>Added Cost</strong></div><div class="col-md-5"><strong>Determined By</strong></div></div>');
+            }
+
+            $existing.append('<p><div class="row"><div class="col-md-1"><a href="" class="delete-cost-impact" title="delete"><span class="glyphicon glyphicon-trash"></span></a></div><div class="col-md-6">' + $addedcost.val() + '</div><div class="col-md-5">' + $determinedby.val() + '</div></div></p>');
+
+            $addedcost.val('');
+            $determinedby.val('');
+        });
+
+        $(document).on('click', '.save-del-impact', function (e) {
+            e.preventDefault();
+
+            var $impact = $('.del-impact')
+                , specid = $('#Spec_Id').val();
+
+            if ($impact.val() == '') {
+                return;
+            }
+
+            if (specid != '0') {
+                add_del_impact('@Url.RouteUrl("spec.adddelimpact")', specid, $impact.val());
+                return;
+            }
+
+            var $toadd = $('#DeliveryImpactsToAdd')
+                , $existing = $('.del-impacts');
+
+            if ($toadd.val() != '') {
+                $toadd.val($toadd.val() + '|' + $impact.val());
+            }
+            else {
+                $toadd.val($impact.val());
+            }
+
+            $existing.find('.none-msg').remove();
+            $existing.append('<p><a class="delete-del-impact" title="delete"><span class="glyphicon glyphicon-trash"></span></a> ' + $impact.val() + '</p>');
+
+            $impact.val('');
+
+        });
+
+        $(document).on('click', '.delete-alloy-temper', function (e) {
+            e.preventDefault();
+
+            var specid = $('#Spec_Id').val();
+
+            if (specid == '0') {
+                $(this).closest('p').remove();
+
+                if ($('.delete-alloy-temper').length == 0) {
+                    $('.alloy-tempers').append('<p class="none-msg">This spec has no alloy-temper combinations.</p>');
+                }
+
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.RouteUrl("spec.deletealloytemper")',
+                type: 'POST',
+                data: { id: $(this).siblings('.alloy-temper-id').val() },
+                success: function (result) {
+                    window.location.reload();
+                }
+            });
+        });
+
+        $(document).on('click', '.delete-equiv-spec', function (e) {
+            e.preventDefault();
+
+            var specid = $('#Spec_Id').val();
+
+            if (specid == '0') {
+                $(this).closest('p').remove();
+
+                if ($('.delete-equiv-spec').length == 0) {
+                    $('.equiv-specs').append('<p class="none-msg">This spec has no equivalents.</p>');
+                }
+
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.RouteUrl("spec.deleteequivspec")',
+                type: 'POST',
+                data: { id: $(this).siblings('.equiv-spec-id').val() },
+                success: function (result) {
+                    window.location.reload();
+                }
+            });
+        });
+
+        $(document).on('click', '.delete-cost-impact', function (e) {
+            e.preventDefault();
+
+            var specid = $('#Spec_Id').val();
+
+            if (specid == '0') {
+                $(this).closest('.row').remove();
+
+                if ($('.delete-cost-impact').length == 0) {
+                    $(this).closest('p').remove();
+                    $('.cost-impacts').find('.heading').remove();
+                    $('.cost-impacts').append('<p class="none-msg">This spec has no cost impacts.</p>');
+                }
+
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.RouteUrl("spec.deletecostimpact")',
+                type: 'POST',
+                data: { id: $(this).siblings('.cost-impact-id').val() },
+                success: function (result) {
+                    window.location.reload();
+                }
+            });
+        });
+
+        $(document).on('click', '.delete-del-impact', function (e) {
+            e.preventDefault();
+
+            var specid = $('#Spec_Id').val();
+
+            if (specid == 0) {
+                $(this).closest('p').remove();
+
+                if ($('.delete-del-impact').length == 0) {
+                    $('.del-impacts').append('<p class="none-msg">This spec has no delivery impacts.</p>');
+                }
+
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.RouteUrl("spec.deletedelimpact")',
+                type: 'POST',
+                data: { id: $(this).siblings('.del-impact-id').val() },
+                success: function (result) {
+                    window.location.reload();
+                }
+            });
+        });
+
+    </script>
+
+}
