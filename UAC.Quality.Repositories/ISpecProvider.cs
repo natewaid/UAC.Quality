@@ -7,7 +7,7 @@
     {
         IEnumerable<Spec> Specs();
 
-        SpecDetailsResult SpecDetails(int? specid = null);
+        SpecDetailsResult SpecDetails(int specid);
 
         int SaveSpec(Spec spec);
     }

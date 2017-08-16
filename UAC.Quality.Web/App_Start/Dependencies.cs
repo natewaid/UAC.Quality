@@ -13,7 +13,8 @@
             var connStr = ConfigurationManager.ConnectionStrings["quality"].ConnectionString;
 
             Collection.RegisterAsFactoryWithName<IDbConnection, SqlConnection>("quality", connStr);
-            
+
+            Collection.Register<ISimpleData, SimpleDataProvider>();
             Collection.Register<ISpecProvider, SpecProvider>();
             Collection.RegisterWithName<IProvider, AlloyTemperProvider>("alloytemper");
             Collection.RegisterWithName<IProvider, EquivSpecProvider>("equivspec");

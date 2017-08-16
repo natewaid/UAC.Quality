@@ -46,10 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Flash">
-      <HintPath>..\Flash\bin\Debug\Flash.dll</HintPath>
+      <HintPath>..\..\Flash\bin\Debug\Flash.dll</HintPath>
     </Reference>
     <Reference Include="Gimme">
-      <HintPath>..\Gimme\bin\Debug\Gimme.dll</HintPath>
+      <HintPath>..\..\Gimme\bin\Debug\Gimme.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -129,7 +129,7 @@
     <Compile Include="Controllers\AlloyTemperController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CostImpactController.cs" />
-    <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\SimpleDataController.cs" />
     <Compile Include="Controllers\DeliveryImpactController.cs" />
     <Compile Include="Controllers\EquivSpecController.cs" />
     <Compile Include="Controllers\SpecController.cs" />

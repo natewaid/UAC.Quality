@@ -1,27 +1,22 @@
 ﻿namespace UAC.Quality.Web.Controllers
 {
     using System.Web.Mvc;
-    using Core;
     using Models;
 
     public class SpecController : BaseController
     {        
         [Route("", Name = "spec.index")]
-        public ActionResult Index() => View(specProvider.Specs());       
-        
-        [Route("details/{id:int?}", Name = "spec.details")]
-        public ActionResult Details(int? id = null)
+        public ActionResult Index() => View(specProvider.Specs());
+
+        [Route("details", Name = "spec.details")]
+        public ActionResult Details()
         {
-            if (!id.HasValue)
-            {
-                return View(new SpecViewModel());
-            }
+            return View(new SpecViewModel());
+        }
 
-            if (id == 0)
-            {
-                return View(new SpecViewModel());
-            }
-
+        [Route("details/{id:int}", Name = "spec.details.byid")]
+        public ActionResult Details(int id)
+        {
             var result = specProvider.SpecDetails(id);
             var model = new SpecViewModel
             {

@@ -6,20 +6,22 @@
     using Repositories;
 
     [RoutePrefix("data")]
-    public class DataController : Controller
+    public class SimpleDataController : Controller
     {
-        private SpecProvider specProvider;
+        private ISpecProvider specProvider;
+        private ISimpleData simpleDataProvider;
 
-        public DataController()
+        public SimpleDataController()
         {
-            specProvider = (SpecProvider)Collection.Locate<ISpecProvider>();
+            specProvider = Collection.Locate<ISpecProvider>();
+            simpleDataProvider = Collection.Locate<ISimpleData>();
         }
 
         [HttpGet]
         [Route("alloys", Name = "data.alloys")]
         public JsonResult Alloys()
         {
-            var alloys = specProvider.Alloys();
+            var alloys = simpleDataProvider.Alloys();
 
             return Json(alloys, JsonRequestBehavior.AllowGet);
         }
@@ -28,7 +30,7 @@
         [Route("tempers", Name = "data.tempers")]
         public JsonResult Tempers()
         {
-            var tempers = specProvider.Tempers();
+            var tempers = simpleDataProvider.Tempers();
 
             return Json(tempers, JsonRequestBehavior.AllowGet);
         }

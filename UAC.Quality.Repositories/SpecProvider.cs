@@ -2,26 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Core;
     using Flash;
     using Gimme;
 
-    public class SpecProvider : SimpleData, ISpecProvider
+    public class SpecProvider : ISpecProvider
     {
-        internal class SimpleString
-        {
-            public string ScalarString { get; set; }
-        }
-
         public IEnumerable<Spec> Specs() => Flash.List<Spec>(Collection.Locate<IDbConnection>("quality"), "quality.specs");
 
-        public override IEnumerable<string> Alloys() => Flash.List<SimpleString>(Gimme.Collection.Locate<IDbConnection>("quality"), "quality.alloys").Select(s => s.ScalarString);
-
-        public override IEnumerable<string> Tempers() => Flash.List<SimpleString>(Gimme.Collection.Locate<IDbConnection>("quality"), "quality.tempers").Select(s => s.ScalarString);
-
-
-        public SpecDetailsResult SpecDetails(int? specid = null)
+        public SpecDetailsResult SpecDetails(int specid)
         {
             var result = new SpecDetailsResult();
 
